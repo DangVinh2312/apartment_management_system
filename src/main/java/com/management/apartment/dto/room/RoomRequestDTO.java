@@ -15,6 +15,6 @@ public class RoomRequestDTO {
 
     private String description;
 
-    private Apartment apartment;
+    private Long apartmentId;
 
 }

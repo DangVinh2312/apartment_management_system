@@ -1,6 +1,5 @@
 package com.management.apartment.controllers;
 
-import com.management.apartment.dto.apartment.ApartmentRequestDTO;
 import com.management.apartment.dto.room.RoomRequestDTO;
 import com.management.apartment.services.ApartmentService;
 import com.management.apartment.services.RoomService;
@@ -8,9 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -24,19 +21,20 @@ public class RoomController {
     private ApartmentService apartmentService;
 
     @GetMapping(path = "/")
-    public String getAllUsers(Model model) {
+    public String getAllRooms(Model model) {
         model.addAttribute("rooms", roomService.getAllRooms());
+        model.addAttribute("newRoom", new RoomRequestDTO());
         model.addAttribute("apartments", apartmentService.getAllApartments());
         return "./RoomView/index";
     }
 
 
     @PostMapping(value = "/save")
-    public String saveRoom(@Valid RoomRequestDTO roomRequestDTO, BindingResult result) {
+    public String saveRoom(@Valid @ModelAttribute RoomRequestDTO roomRequestDTO, BindingResult result) {
         if (result.hasErrors()) {
-            return "./ApartmentView/index";
+            return "./RoomView/index";
         }
         roomService.saveRoom(roomRequestDTO);
-        return "redirect:/admin/apartments/";
+        return "redirect:/admin/rooms/";
     }
 }

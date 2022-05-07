@@ -10,8 +10,6 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
 @Getter
@@ -30,9 +28,9 @@ public class Room {
 
     private RoomStatus roomStatus = RoomStatus.EMPTY;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @JoinColumn(nullable = false)
+    @JoinColumn
     private Apartment apartment;
 
     public Room (RoomRequestDTO roomRequestDTO) {

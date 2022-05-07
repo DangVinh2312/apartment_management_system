@@ -46,27 +46,27 @@
     <table class="table table-info mt-3">
         <thead>
         <tr>
-<!--            <th>ID</th>-->
-<!--            <th>Name</th>-->
-<!--            <th>CCCD</th>-->
-<!--            <th>Phone Number</th>-->
-<!--            <th>Date of birth</th>-->
-<!--            <th>Home Town</th>-->
-<!--            <th></th>-->
-<!--            <th></th>-->
+            <th>ID</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Price</th>
+            <th>Apartment</th>
+            <th>Status</th>
+            <th></th>
+            <th></th>
         </tr>
         </thead>
         <tbody>
-<!--        <tr th:each="user : ${users}">-->
-<!--            <td th:text="${user.getId()}"/>-->
-<!--            <td><a th:href="'/users/' + ${user.getId()}" th:text="${user.getName()}"/></td>-->
-<!--            <td th:text="${user.getCccd()}"/>-->
-<!--            <td th:text="${user.getTel()}"/>-->
-<!--            <td th:text="${user.getDob()}"/>-->
-<!--            <td th:text="${user.getHomeTown()}"/>-->
-<!--            <td><a th:href="'/users/edit/' + ${employee.getId()}"><i class="fa fa-edit"></i></a></td>-->
-<!--            <td><a th:href="'/users/delete/' + ${employee.getId()}"><i class="fa fa-trash"></i></a></td>-->
-<!--        </tr>-->
+        <tr th:each="room : ${rooms}">
+            <td th:text="${room.getId()}"/>
+            <td><a th:href="'/users/' + ${room.getId()}" th:text="${room.getName()}"/></td>
+            <td th:text="${room.getDescription()}"/>
+            <td th:text="${room.getPrice()}"/>
+            <td th:text="${room.getApartment().getName()}"/>
+            <td th:text="${room.getRoomStatus()}"/>
+            <td><a th:href="'/rooms/edit/' + ${room.getId()}"><i class="fa fa-edit"></i></a></td>
+            <td><a th:href="'/rooms/delete/' + ${room.getId()}"><i class="fa fa-trash"></i></a></td>
+        </tr>
         </tbody>
     </table>
 
@@ -75,54 +75,36 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">New Room</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form class="row g-3">
+                    <form th:object="${newRoom}" th:action="@{/admin/rooms/save}" method="post" class="row g-3">
                         <div class="col-md-6">
-                            <label for="inputEmail4" class="form-label">Email</label>
-                            <input type="email" class="form-control" id="inputEmail4">
-                        </div>
-                        <div class="col-md-6">
-                            <label for="inputPassword4" class="form-label">Password</label>
-                            <input type="password" class="form-control" id="inputPassword4">
-                        </div>
-                        <div class="col-12">
-                            <label for="inputAddress" class="form-label">Address</label>
-                            <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
-                        </div>
-                        <div class="col-12">
-                            <label for="inputAddress2" class="form-label">Address 2</label>
-                            <input type="text" class="form-control" id="inputAddress2"
-                                   placeholder="Apartment, studio, or floor">
+                            <label th:for="name" class="form-label">Name</label>
+                            <input type="text" class="form-control" th:field="*{name}">
                         </div>
                         <div class="col-md-6">
-                            <label for="inputCity" class="form-label">City</label>
-                            <input type="text" class="form-control" id="inputCity">
+                            <label th:for="price" class="form-label">Price</label>
+                            <input type="number" class="form-control" th:field="*{price}">
                         </div>
-                        <div class="col-md-4">
-                            <label for="inputState" class="form-label">State</label>
-                            <select id="inputState" class="form-select">
-                                <option selected>Choose...</option>
-                                <option>...</option>
+                        <div class="mb-3">
+                            <label th:for="description" class="form-label">Description</label>
+                            <input type="text" class="form-control" th:field="*{description}">
+                        </div>
+                        <div class="col-md-12">
+                            <label th:for="apartmentId" class="form-label">Apartment</label>
+                            <select th:field="*{apartmentId}" class="form-select">
+                                <option value="" selected>Choose...</option>
+                                <option th:each="apartment : ${apartments}"
+                                        th:text="${apartment.getName()}"
+                                        th:value="${apartment.getId()}"
+                                        value=""/>
                             </select>
-                        </div>
-                        <div class="col-md-2">
-                            <label for="inputZip" class="form-label">Zip</label>
-                            <input type="text" class="form-control" id="inputZip">
-                        </div>
-                        <div class="col-12">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="gridCheck">
-                                <label class="form-check-label" for="gridCheck">
-                                    Check me out
-                                </label>
-                            </div>
                         </div>
                         <div class="col-12">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Sign in</button>
+                            <button type="submit" class="btn btn-primary">Create</button>
                         </div>
                     </form>
                 </div>

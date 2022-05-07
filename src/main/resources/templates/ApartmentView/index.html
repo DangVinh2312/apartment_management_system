@@ -46,21 +46,21 @@
     <table class="table table-info mt-3">
         <thead>
         <tr>
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th>Address</th>
-                        <th></th>
-                        <th></th>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Address</th>
+            <th></th>
+            <th></th>
         </tr>
         </thead>
         <tbody>
-                <tr th:each="apartment : ${apartments}">
-                    <td th:text="${apartment.getId()}"/>
-                    <td><a th:href="'/admin/aparments/' + ${apartment.getId()}" th:text="${apartment.getName()}"/></td>
-                    <td th:text="${apartment.getAddress()}"/>
-                    <td><a th:href="'/admin/apartments/edit/' + ${apartment.getId()}"><i class="fa fa-edit"></i></a></td>
-                    <td><a th:href="'/admin/apartments/delete/' + ${apartment.getId()}"><i class="fa fa-trash" data-bs-toggle="modal" data-bs-target="#editApartmentModal"></i></a></td>
-                </tr>
+        <tr th:each="apartment : ${apartments}">
+            <td th:text="${apartment.getId()}"/>
+            <td><a th:href="'/admin/aparments/' + ${apartment.getId()}" th:text="${apartment.getName()}"/></td>
+            <td th:text="${apartment.getAddress()}"/>
+            <td><a th:href="'/admin/apartments/edit/' + ${apartment.getId()}"><i class="fa fa-edit"></i></a></td>
+            <td><a th:href="'/admin/apartments/delete/' + ${apartment.getId()}"><i class="fa fa-trash"></i></a></td>
+        </tr>
         </tbody>
     </table>
 
@@ -94,35 +94,6 @@
         </div>
     </div>
 
-    <!-- Add Apartment Modal -->
-    <div class="modal fade" id="editApartmentModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-         aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="editApartmentModalLabel"> New Apartment</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form th:object="${editApartment}" th:action="@{/admin/apartments/save}" method="post"
-                          class="row g-3">
-                        <div class="col-12">
-                            <label th:for="name" class="form-label">Name</label>
-                            <input type="text" class="form-control" th:field="*{name}">
-                        </div>
-                        <div class="col-12">
-                            <label th:for="address" class="form-label">Address</label>
-                            <input type="text" class="form-control" th:field="*{address}">
-                        </div>
-                        <div class="col-12">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Add</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
 </div>
 </body>
 </html>
