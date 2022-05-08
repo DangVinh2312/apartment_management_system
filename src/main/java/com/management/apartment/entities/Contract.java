@@ -20,6 +20,14 @@ public class Contract {
 
     private LocalDate endDate;
 
+    @OneToOne
+    @JoinColumn
+    private Room room;
+
+    @OneToOne
+    @JoinColumn
+    private User user;
+
     @Embedded
     private ContactDetail contactDetail;
 

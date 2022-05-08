@@ -24,11 +24,17 @@ public class ApartmentController {
     }
 
     @PostMapping(value = "/save")
-    public String saveApartment(@Valid @ModelAttribute  ApartmentRequestDTO apartmentRequestDTO, BindingResult result) {
+    public String saveApartment(@Valid @ModelAttribute ApartmentRequestDTO apartmentRequestDTO, BindingResult result) {
         if (result.hasErrors()) {
             return "./ApartmentView/index";
         }
         apartmentService.saveApartment(apartmentRequestDTO);
+        return "redirect:/admin/apartments/";
+    }
+
+    @GetMapping(path = "/delete/{id}")
+    public String deleteApartment(@PathVariable("id") Long id, Model model) {
+        apartmentService.deleteApartment(id);
         return "redirect:/admin/apartments/";
     }
 }

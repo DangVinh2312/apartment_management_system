@@ -28,8 +28,4 @@ public class UserRequestDTO {
     private String tel;
 
     private String homeTown;
-
-    private Apartment apartment;
-
-    private String roomName;
 }

@@ -28,4 +28,8 @@ public class RoomService {
         room.setApartment(apartment);
         roomRepository.save(room);
     }
+
+    public void deleteRoom(Long id) {
+        roomRepository.deleteById(id);
+    }
 }

@@ -22,9 +22,7 @@ public class ApartmentService {
         apartmentRepository.save(apartment);
     }
 
-    public ApartmentRequestDTO editApartment(Long id) {
-        Apartment apartment = apartmentRepository.getById(id);
-        ApartmentRequestDTO apartmentRequestDTO = new ApartmentRequestDTO(apartment);
-        return apartmentRequestDTO;
+    public void deleteApartment(Long id) {
+        apartmentRepository.deleteById(id);
     }
 }

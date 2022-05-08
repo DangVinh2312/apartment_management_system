@@ -1,11 +1,11 @@
 package com.management.apartment.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.management.apartment.dto.user.UserRequestDTO;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
@@ -31,14 +31,21 @@ public class User {
 
     private String homeTown;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    @JoinColumn(nullable = false)
-    private Room room;
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "user")
+    @JsonIgnore
+    private Contract contract;
 
     @CreationTimestamp
     private LocalDateTime createdAt;
 
     @UpdateTimestamp
     private LocalDateTime updatedAt;
+
+    public User (UserRequestDTO userRequestDTO) {
+        this.name = userRequestDTO.getName();
+        this.cccd = userRequestDTO.getCccd();
+        this.dob = userRequestDTO.getDob();
+        this.tel = userRequestDTO.getTel();
+        this.homeTown = userRequestDTO.getHomeTown();
+    }
 }

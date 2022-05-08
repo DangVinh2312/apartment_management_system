@@ -23,15 +23,18 @@ public class Room {
     private String name;
 
     private double price;
-
     private String description;
 
     private RoomStatus roomStatus = RoomStatus.EMPTY;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @JoinColumn
+    @JoinColumn(nullable = false)
     private Apartment apartment;
+
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "room")
+    @JsonIgnore
+    private Contract contract;
 
     public Room (RoomRequestDTO roomRequestDTO) {
         this.name = roomRequestDTO.getName();

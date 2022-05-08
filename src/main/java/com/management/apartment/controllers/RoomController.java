@@ -37,4 +37,10 @@ public class RoomController {
         roomService.saveRoom(roomRequestDTO);
         return "redirect:/admin/rooms/";
     }
+
+    @GetMapping(path = "/delete/{id}")
+    public String deleteRoom(@PathVariable("id") Long id, Model model) {
+        roomService.deleteRoom(id);
+        return "redirect:/admin/rooms/";
+    }
 }
